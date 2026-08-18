@@ -1,6 +1,7 @@
 package com.example.musteri_faturalama_sistemi.controller;
 
-import com.example.musteri_faturalama_sistemi.entity.BillingAddress;
+import com.example.musteri_faturalama_sistemi.dto.BillingAddressRequest;
+import com.example.musteri_faturalama_sistemi.dto.BillingAddressResponse;
 import com.example.musteri_faturalama_sistemi.service.BillingAddressService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -14,25 +15,25 @@ public class BillingAddressController {
     private BillingAddressService billingAddressService;
 
     @PostMapping("/api/billing-accounts/{billingAccountId}/address")
-    public BillingAddress createBillingAddress(@PathVariable Long billingAccountId,
-                                               @RequestBody BillingAddress billingAddress) {
-        return billingAddressService.createBillingAddress(billingAccountId, billingAddress);
+    public BillingAddressResponse createBillingAddress(@PathVariable Long billingAccountId,
+                                                       @RequestBody BillingAddressRequest request) {
+        return billingAddressService.createBillingAddress(billingAccountId, request);
     }
 
     @GetMapping("/api/billing-addresses")
-    public List<BillingAddress> getAllBillingAddresses() {
+    public List<BillingAddressResponse> getAllBillingAddresses() {
         return billingAddressService.getAllBillingAddresses();
     }
 
     @GetMapping("/api/billing-addresses/{id}")
-    public BillingAddress getBillingAddressById(@PathVariable Long id) {
+    public BillingAddressResponse getBillingAddressById(@PathVariable Long id) {
         return billingAddressService.getBillingAddressById(id);
     }
 
     @PutMapping("/api/billing-addresses/{id}")
-    public BillingAddress updateBillingAddress(@PathVariable Long id,
-                                               @RequestBody BillingAddress billingAddress) {
-        return billingAddressService.updateBillingAddress(id, billingAddress);
+    public BillingAddressResponse updateBillingAddress(@PathVariable Long id,
+                                                       @RequestBody BillingAddressRequest request) {
+        return billingAddressService.updateBillingAddress(id, request);
     }
 
     @DeleteMapping("/api/billing-addresses/{id}")

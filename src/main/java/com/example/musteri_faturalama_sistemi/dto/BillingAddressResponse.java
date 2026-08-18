@@ -1,41 +1,24 @@
-package com.example.musteri_faturalama_sistemi.entity;
+package com.example.musteri_faturalama_sistemi.dto;
 
-
-import jakarta.persistence.*;
-
-@Entity
-@Table(name = "billing_addresses")
-public class BillingAddress {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "address_seq")
-    @SequenceGenerator(name = "address_seq", sequenceName = "address_sequence", allocationSize = 1)
+public class BillingAddressResponse {
     private Long id;
-
-    @Column(nullable = false)
     private String city;
-
-    @Column(nullable = false)
     private String district;
-
-    @Column(nullable = false)
     private String fullAddress;
-
     private String postalCode;
+    private Long billingAccountId;
 
-    @OneToOne
-    @JoinColumn(name = "billing_account_id", nullable = false, unique = true)
-    private BillingAccount billingAccount;
-
-    public BillingAddress() {
+    public BillingAddressResponse() {
     }
 
-    public BillingAddress(String city, String district, String fullAddress, String postalCode, BillingAccount billingAccount) {
+    public BillingAddressResponse(Long id, String city, String district, String fullAddress,
+                                  String postalCode, Long billingAccountId) {
+        this.id = id;
         this.city = city;
         this.district = district;
         this.fullAddress = fullAddress;
         this.postalCode = postalCode;
-        this.billingAccount = billingAccount;
+        this.billingAccountId = billingAccountId;
     }
 
     public Long getId() {
@@ -78,11 +61,11 @@ public class BillingAddress {
         this.postalCode = postalCode;
     }
 
-    public BillingAccount getBillingAccount() {
-        return billingAccount;
+    public Long getBillingAccountId() {
+        return billingAccountId;
     }
 
-    public void setBillingAccount(BillingAccount billingAccount) {
-        this.billingAccount = billingAccount;
+    public void setBillingAccountId(Long billingAccountId) {
+        this.billingAccountId = billingAccountId;
     }
 }

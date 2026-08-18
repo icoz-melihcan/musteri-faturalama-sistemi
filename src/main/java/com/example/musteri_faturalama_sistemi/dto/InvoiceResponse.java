@@ -1,42 +1,27 @@
-package com.example.musteri_faturalama_sistemi.entity;
+package com.example.musteri_faturalama_sistemi.dto;
 
-import jakarta.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-@Entity
-@Table(name = "invoices")
-public class Invoice {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "invoice_seq")
-    @SequenceGenerator(name = "invoice_seq", sequenceName = "invoice_sequence", allocationSize = 1)
+public class InvoiceResponse {
     private Long id;
-
-    @Column(nullable = false)
     private String invoiceNumber;
-
-    @Column(nullable = false)
     private LocalDate invoiceDate;
-
-    @Column(nullable = false)
     private BigDecimal amount;
+    private boolean paid;
+    private Long billingAccountId;
 
-    @Column(nullable = false)
-    private boolean paid = false;
-
-    @ManyToOne
-    @JoinColumn(name = "billing_account_id", nullable = false)
-    private BillingAccount billingAccount;
-
-    public Invoice() {
+    public InvoiceResponse() {
     }
 
-    public Invoice(String invoiceNumber, LocalDate invoiceDate, BigDecimal amount, BillingAccount billingAccount) {
+    public InvoiceResponse(Long id, String invoiceNumber, LocalDate invoiceDate,
+                           BigDecimal amount, boolean paid, Long billingAccountId) {
+        this.id = id;
         this.invoiceNumber = invoiceNumber;
         this.invoiceDate = invoiceDate;
         this.amount = amount;
-        this.billingAccount = billingAccount;
+        this.paid = paid;
+        this.billingAccountId = billingAccountId;
     }
 
     public Long getId() {
@@ -79,11 +64,11 @@ public class Invoice {
         this.paid = paid;
     }
 
-    public BillingAccount getBillingAccount() {
-        return billingAccount;
+    public Long getBillingAccountId() {
+        return billingAccountId;
     }
 
-    public void setBillingAccount(BillingAccount billingAccount) {
-        this.billingAccount = billingAccount;
+    public void setBillingAccountId(Long billingAccountId) {
+        this.billingAccountId = billingAccountId;
     }
 }

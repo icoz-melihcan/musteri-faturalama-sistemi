@@ -1,11 +1,14 @@
 package com.example.musteri_faturalama_sistemi.service;
 
+import com.example.musteri_faturalama_sistemi.dto.CustomerRequest;
+import com.example.musteri_faturalama_sistemi.dto.CustomerResponse;
 import com.example.musteri_faturalama_sistemi.entity.Customer;
 import com.example.musteri_faturalama_sistemi.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class CustomerService {
@@ -13,29 +16,56 @@ public class CustomerService {
     @Autowired
     private CustomerRepository customerRepository;
 
-    public List<Customer> getAllCustomers() {
-        return customerRepository.findAll();
+    public List<CustomerResponse> getAllCustomers() {
+        return customerRepository.findAll()
+                .stream()
+                .map(this::toResponse)
+                .collect(Collectors.toList());
     }
 
-    public Customer getCustomerById(Long id) {
-        return customerRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Müşteri bulunamadı: " + id));
+    public CustomerResponse getCustomerById(Long id) {
+        Customer customer = getCustomerEntityById(id);
+        return toResponse(customer);
     }
 
-    public Customer createCustomer(Customer customer) {
-        return customerRepository.save(customer);
+    public CustomerResponse createCustomer(CustomerRequest request) {
+        Customer customer = new Customer();
+        customer.setFirstName(request.getFirstName());
+        customer.setLastName(request.getLastName());
+        customer.setEmail(request.getEmail());
+        customer.setPhoneNumber(request.getPhoneNumber());
+        Customer saved = customerRepository.save(customer);
+        return toResponse(saved);
     }
 
-    public Customer updateCustomer(Long id, Customer updatedCustomer) {
-        Customer existing = getCustomerById(id);
-        existing.setFirstName(updatedCustomer.getFirstName());
-        existing.setLastName(updatedCustomer.getLastName());
-        existing.setEmail(updatedCustomer.getEmail());
-        existing.setPhoneNumber(updatedCustomer.getPhoneNumber());
-        return customerRepository.save(existing);
+    public CustomerResponse updateCustomer(Long id, CustomerRequest request) {
+        Customer existing = getCustomerEntityById(id);
+        existing.setFirstName(request.getFirstName());
+        existing.setLastName(request.getLastName());
+        existing.setEmail(request.getEmail());
+        existing.setPhoneNumber(request.getPhoneNumber());
+        Customer updated = customerRepository.save(existing);
+        return toResponse(updated);
     }
 
     public void deleteCustomer(Long id) {
         customerRepository.deleteById(id);
+    }
+
+    // --- Yardımcı metotlar ---
+
+    public Customer getCustomerEntityById(Long id) {
+        return customerRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Müşteri bulunamadı: " + id));
+    }
+
+    private CustomerResponse toResponse(Customer customer) {
+        return new CustomerResponse(
+                customer.getId(),
+                customer.getFirstName(),
+                customer.getLastName(),
+                customer.getEmail(),
+                customer.getPhoneNumber()
+        );
     }
 }

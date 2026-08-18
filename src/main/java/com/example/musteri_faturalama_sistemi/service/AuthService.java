@@ -4,6 +4,7 @@ import com.example.musteri_faturalama_sistemi.config.JwtUtil;
 import com.example.musteri_faturalama_sistemi.dto.AuthResponse;
 import com.example.musteri_faturalama_sistemi.dto.LoginRequest;
 import com.example.musteri_faturalama_sistemi.dto.RegisterRequest;
+import com.example.musteri_faturalama_sistemi.dto.UserResponse;
 import com.example.musteri_faturalama_sistemi.entity.User;
 import com.example.musteri_faturalama_sistemi.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,12 +28,14 @@ public class AuthService {
     @Autowired
     private JwtUtil jwtUtil;
 
-    public User register(RegisterRequest request) {
+    public UserResponse register(RegisterRequest request) {
         User user = new User();
         user.setUsername(request.getUsername());
         user.setPassword(passwordEncoder.encode(request.getPassword()));
         user.setRole(request.getRole());
-        return userRepository.save(user);
+        User saved = userRepository.save(user);
+
+        return new UserResponse(saved.getId(), saved.getUsername(), saved.getRole());
     }
 
     public AuthResponse login(LoginRequest request) {

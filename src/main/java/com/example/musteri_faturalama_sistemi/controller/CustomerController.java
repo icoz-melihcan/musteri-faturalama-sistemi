@@ -1,6 +1,7 @@
 package com.example.musteri_faturalama_sistemi.controller;
 
-import com.example.musteri_faturalama_sistemi.entity.Customer;
+import com.example.musteri_faturalama_sistemi.dto.CustomerRequest;
+import com.example.musteri_faturalama_sistemi.dto.CustomerResponse;
 import com.example.musteri_faturalama_sistemi.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -15,23 +16,23 @@ public class CustomerController {
     private CustomerService customerService;
 
     @GetMapping
-    public List<Customer> getAllCustomers() {
+    public List<CustomerResponse> getAllCustomers() {
         return customerService.getAllCustomers();
     }
 
     @GetMapping("/{id}")
-    public Customer getCustomerById(@PathVariable Long id) {
+    public CustomerResponse getCustomerById(@PathVariable Long id) {
         return customerService.getCustomerById(id);
     }
 
     @PostMapping
-    public Customer createCustomer(@RequestBody Customer customer) {
-        return customerService.createCustomer(customer);
+    public CustomerResponse createCustomer(@RequestBody CustomerRequest request) {
+        return customerService.createCustomer(request);
     }
 
     @PutMapping("/{id}")
-    public Customer updateCustomer(@PathVariable Long id, @RequestBody Customer customer) {
-        return customerService.updateCustomer(id, customer);
+    public CustomerResponse updateCustomer(@PathVariable Long id, @RequestBody CustomerRequest request) {
+        return customerService.updateCustomer(id, request);
     }
 
     @DeleteMapping("/{id}")

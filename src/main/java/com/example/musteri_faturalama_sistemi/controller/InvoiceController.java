@@ -1,6 +1,7 @@
 package com.example.musteri_faturalama_sistemi.controller;
 
-import com.example.musteri_faturalama_sistemi.entity.Invoice;
+import com.example.musteri_faturalama_sistemi.dto.InvoiceRequest;
+import com.example.musteri_faturalama_sistemi.dto.InvoiceResponse;
 import com.example.musteri_faturalama_sistemi.service.InvoiceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -14,24 +15,24 @@ public class InvoiceController {
     private InvoiceService invoiceService;
 
     @PostMapping("/api/billing-accounts/{billingAccountId}/invoices")
-    public Invoice createInvoice(@PathVariable Long billingAccountId,
-                                 @RequestBody Invoice invoice) {
-        return invoiceService.createInvoice(billingAccountId, invoice);
+    public InvoiceResponse createInvoice(@PathVariable Long billingAccountId,
+                                         @RequestBody InvoiceRequest request) {
+        return invoiceService.createInvoice(billingAccountId, request);
     }
 
     @GetMapping("/api/invoices")
-    public List<Invoice> getAllInvoices() {
+    public List<InvoiceResponse> getAllInvoices() {
         return invoiceService.getAllInvoices();
     }
 
     @GetMapping("/api/invoices/{id}")
-    public Invoice getInvoiceById(@PathVariable Long id) {
+    public InvoiceResponse getInvoiceById(@PathVariable Long id) {
         return invoiceService.getInvoiceById(id);
     }
 
     @PutMapping("/api/invoices/{id}")
-    public Invoice updateInvoice(@PathVariable Long id, @RequestBody Invoice invoice) {
-        return invoiceService.updateInvoice(id, invoice);
+    public InvoiceResponse updateInvoice(@PathVariable Long id, @RequestBody InvoiceRequest request) {
+        return invoiceService.updateInvoice(id, request);
     }
 
     @DeleteMapping("/api/invoices/{id}")
