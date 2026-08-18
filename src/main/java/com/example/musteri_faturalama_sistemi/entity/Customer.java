@@ -1,6 +1,7 @@
 package com.example.musteri_faturalama_sistemi.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import java.util.List;
 
@@ -25,6 +26,7 @@ public class Customer {
     private String phoneNumber;
 
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference("customer-accounts")
     private List<BillingAccount> billingAccounts;
 
     public Customer() {

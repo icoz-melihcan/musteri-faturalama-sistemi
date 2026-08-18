@@ -1,6 +1,7 @@
 package com.example.musteri_faturalama_sistemi.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 @Entity
@@ -25,6 +26,7 @@ public class BillingAddress {
 
     @OneToOne
     @JoinColumn(name = "billing_account_id", nullable = false, unique = true)
+    @JsonBackReference("account-address")
     private BillingAccount billingAccount;
 
     public BillingAddress() {

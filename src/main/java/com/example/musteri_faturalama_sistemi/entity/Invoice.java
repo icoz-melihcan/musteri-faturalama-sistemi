@@ -1,5 +1,6 @@
 package com.example.musteri_faturalama_sistemi.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -27,6 +28,7 @@ public class Invoice {
 
     @ManyToOne
     @JoinColumn(name = "billing_account_id", nullable = false)
+    @JsonBackReference("account-invoices")
     private BillingAccount billingAccount;
 
     public Invoice() {

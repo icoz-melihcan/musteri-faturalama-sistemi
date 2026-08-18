@@ -1,5 +1,7 @@
 package com.example.musteri_faturalama_sistemi.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import java.util.List;
 
@@ -17,12 +19,15 @@ public class BillingAccount {
 
     @ManyToOne
     @JoinColumn(name = "customer_id", nullable = false)
+    @JsonBackReference("customer-accounts")
     private Customer customer;
 
     @OneToOne(mappedBy = "billingAccount", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference("account-address")
     private BillingAddress billingAddress;
 
     @OneToMany(mappedBy = "billingAccount", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference("account-invoices")
     private List<Invoice> invoices;
 
     public BillingAccount() {
