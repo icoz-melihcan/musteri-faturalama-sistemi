@@ -1,13 +1,15 @@
+// dto/BillingAccountRequest.java
 package com.example.musteri_faturalama_sistemi.dto;
 
+import lombok.Getter;
+import lombok.Setter;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class BillingAccountRequest {
     private String accountNumber;
-
-    public String getAccountNumber() {
-        return accountNumber;
-    }
-
-    public void setAccountNumber(String accountNumber) {
-        this.accountNumber = accountNumber;
-    }
 }
