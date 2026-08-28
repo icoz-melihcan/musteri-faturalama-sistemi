@@ -3,6 +3,7 @@ package com.example.musteri_faturalama_sistemi.controller;
 import com.example.musteri_faturalama_sistemi.dto.InvoiceRequest;
 import com.example.musteri_faturalama_sistemi.dto.InvoiceResponse;
 import com.example.musteri_faturalama_sistemi.service.InvoiceService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,7 +17,7 @@ public class InvoiceController {
 
     @PostMapping("/api/billing-accounts/{billingAccountId}/invoices")
     public InvoiceResponse createInvoice(@PathVariable Long billingAccountId,
-                                         @RequestBody InvoiceRequest request) {
+                                         @Valid @RequestBody InvoiceRequest request) {
         return invoiceService.createInvoice(billingAccountId, request);
     }
 
@@ -31,7 +32,7 @@ public class InvoiceController {
     }
 
     @PutMapping("/api/invoices/{id}")
-    public InvoiceResponse updateInvoice(@PathVariable Long id, @RequestBody InvoiceRequest request) {
+    public InvoiceResponse updateInvoice(@PathVariable Long id, @Valid @RequestBody InvoiceRequest request) {
         return invoiceService.updateInvoice(id, request);
     }
 

@@ -4,6 +4,7 @@ import com.example.musteri_faturalama_sistemi.dto.InvoiceRequest;
 import com.example.musteri_faturalama_sistemi.dto.InvoiceResponse;
 import com.example.musteri_faturalama_sistemi.entity.BillingAccount;
 import com.example.musteri_faturalama_sistemi.entity.Invoice;
+import com.example.musteri_faturalama_sistemi.exception.ResourceNotFoundException;
 import com.example.musteri_faturalama_sistemi.repository.InvoiceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -63,7 +64,7 @@ public class InvoiceService {
 
     public Invoice getInvoiceEntityById(Long id) {
         return invoiceRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Fatura bulunamadı: " + id));
+                .orElseThrow(() -> new ResourceNotFoundException("Fatura bulunamadı: " + id));
     }
 
     private InvoiceResponse toResponse(Invoice invoice) {

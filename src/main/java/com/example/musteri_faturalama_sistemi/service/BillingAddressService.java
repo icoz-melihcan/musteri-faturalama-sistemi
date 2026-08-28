@@ -4,6 +4,7 @@ import com.example.musteri_faturalama_sistemi.dto.BillingAddressRequest;
 import com.example.musteri_faturalama_sistemi.dto.BillingAddressResponse;
 import com.example.musteri_faturalama_sistemi.entity.BillingAccount;
 import com.example.musteri_faturalama_sistemi.entity.BillingAddress;
+import com.example.musteri_faturalama_sistemi.exception.ResourceNotFoundException;
 import com.example.musteri_faturalama_sistemi.repository.BillingAddressRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -63,7 +64,7 @@ public class BillingAddressService {
 
     public BillingAddress getBillingAddressEntityById(Long id) {
         return billingAddressRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Adres bulunamadı: " + id));
+                .orElseThrow(() -> new ResourceNotFoundException("Adres bulunamadı: " + id));
     }
 
     private BillingAddressResponse toResponse(BillingAddress billingAddress) {

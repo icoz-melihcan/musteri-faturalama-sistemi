@@ -3,6 +3,7 @@ package com.example.musteri_faturalama_sistemi.controller;
 import com.example.musteri_faturalama_sistemi.dto.BillingAddressRequest;
 import com.example.musteri_faturalama_sistemi.dto.BillingAddressResponse;
 import com.example.musteri_faturalama_sistemi.service.BillingAddressService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,7 +17,7 @@ public class BillingAddressController {
 
     @PostMapping("/api/billing-accounts/{billingAccountId}/address")
     public BillingAddressResponse createBillingAddress(@PathVariable Long billingAccountId,
-                                                       @RequestBody BillingAddressRequest request) {
+                                                       @Valid @RequestBody BillingAddressRequest request) {
         return billingAddressService.createBillingAddress(billingAccountId, request);
     }
 
@@ -32,7 +33,7 @@ public class BillingAddressController {
 
     @PutMapping("/api/billing-addresses/{id}")
     public BillingAddressResponse updateBillingAddress(@PathVariable Long id,
-                                                       @RequestBody BillingAddressRequest request) {
+                                                       @Valid @RequestBody BillingAddressRequest request) {
         return billingAddressService.updateBillingAddress(id, request);
     }
 

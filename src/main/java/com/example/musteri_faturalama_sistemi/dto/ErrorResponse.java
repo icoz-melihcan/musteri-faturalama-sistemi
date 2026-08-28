@@ -1,17 +1,18 @@
 package com.example.musteri_faturalama_sistemi.dto;
 
-import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class BillingAccountRequest {
-
-    @NotBlank(message = "Hesap numarası boş olamaz")
-    private String accountNumber;
+public class ErrorResponse {
+    private LocalDateTime timestamp;
+    private int status;
+    private String message;
+    private String path;
 }

@@ -3,6 +3,7 @@ package com.example.musteri_faturalama_sistemi.controller;
 import com.example.musteri_faturalama_sistemi.dto.CustomerRequest;
 import com.example.musteri_faturalama_sistemi.dto.CustomerResponse;
 import com.example.musteri_faturalama_sistemi.service.CustomerService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,12 +27,12 @@ public class CustomerController {
     }
 
     @PostMapping
-    public CustomerResponse createCustomer(@RequestBody CustomerRequest request) {
+    public CustomerResponse createCustomer(@Valid @RequestBody CustomerRequest request) {
         return customerService.createCustomer(request);
     }
 
     @PutMapping("/{id}")
-    public CustomerResponse updateCustomer(@PathVariable Long id, @RequestBody CustomerRequest request) {
+    public CustomerResponse updateCustomer( @PathVariable Long id, @Valid @RequestBody CustomerRequest request) {
         return customerService.updateCustomer(id, request);
     }
 

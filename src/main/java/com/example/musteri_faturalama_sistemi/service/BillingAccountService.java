@@ -4,6 +4,7 @@ import com.example.musteri_faturalama_sistemi.dto.BillingAccountRequest;
 import com.example.musteri_faturalama_sistemi.dto.BillingAccountResponse;
 import com.example.musteri_faturalama_sistemi.entity.BillingAccount;
 import com.example.musteri_faturalama_sistemi.entity.Customer;
+import com.example.musteri_faturalama_sistemi.exception.ResourceNotFoundException;
 import com.example.musteri_faturalama_sistemi.repository.BillingAccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -57,7 +58,7 @@ public class BillingAccountService {
 
     public BillingAccount getBillingAccountEntityById(Long id) {
         return billingAccountRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Hesap bulunamadı: " + id));
+                .orElseThrow(() -> new ResourceNotFoundException("Hesap bulunamadı: " + id));
     }
 
     private BillingAccountResponse toResponse(BillingAccount billingAccount) {

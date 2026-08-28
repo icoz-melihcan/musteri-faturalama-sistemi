@@ -15,8 +15,8 @@ import java.util.List;
 @AllArgsConstructor
 public class Customer {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "customer_seq")
+    @Id //bu anotasyonl id yi primary key olarak alıyoruz.
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "customer_seq") //idyi artırma yöntemi
     @SequenceGenerator(name = "customer_seq", sequenceName = "customer_sequence", allocationSize = 1)
     private Long id;
 
@@ -31,6 +31,6 @@ public class Customer {
 
     private String phoneNumber;
 
-    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)  // 1 customerin birden fazla faturalama hesabı olabilir.
     private List<BillingAccount> billingAccounts;
 }

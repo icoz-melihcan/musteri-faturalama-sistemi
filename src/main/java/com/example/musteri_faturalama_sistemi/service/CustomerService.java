@@ -3,6 +3,7 @@ package com.example.musteri_faturalama_sistemi.service;
 import com.example.musteri_faturalama_sistemi.dto.CustomerRequest;
 import com.example.musteri_faturalama_sistemi.dto.CustomerResponse;
 import com.example.musteri_faturalama_sistemi.entity.Customer;
+import com.example.musteri_faturalama_sistemi.exception.ResourceNotFoundException;
 import com.example.musteri_faturalama_sistemi.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -56,7 +57,7 @@ public class CustomerService {
 
     public Customer getCustomerEntityById(Long id) {
         return customerRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Müşteri bulunamadı: " + id));
+                .orElseThrow(() -> new ResourceNotFoundException("Müşteri bulunamadı: " + id));
     }
 
     private CustomerResponse toResponse(Customer customer) {
