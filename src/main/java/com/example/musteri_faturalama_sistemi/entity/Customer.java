@@ -31,6 +31,8 @@ public class Customer {
 
     private String phoneNumber;
 
+    // mappedBy ben sahibi değilim foreign key karşı tarafta demek.
+    // Yani foreign keyi tutan tarafa mappedBy yazılmaz.
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)  // 1 customerin birden fazla faturalama hesabı olabilir.
     private List<BillingAccount> billingAccounts;
 }
