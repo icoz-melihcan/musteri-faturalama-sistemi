@@ -1,0 +1,25 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: postgres-docker
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 1234
+      POSTGRES_DB: faturalamadb
+    ports:
+      - "5433:5432"
+    networks:
+      - faturalama-network
+
+  app:
+    build: .
+    container_name: faturalama-app
+    depends_on:
+      - postgres
+    ports:
+      - "8080:8080"
+    networks:
+      - faturalama-network
+
+networks:
+  faturalama-network:

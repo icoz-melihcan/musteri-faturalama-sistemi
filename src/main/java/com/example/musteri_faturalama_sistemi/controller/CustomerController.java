@@ -18,6 +18,7 @@ public class CustomerController {
 
     @GetMapping
     public List<CustomerResponse> getAllCustomers() {
+        // Docker güncelleme testi için eklendi
         return customerService.getAllCustomers();
     }
 

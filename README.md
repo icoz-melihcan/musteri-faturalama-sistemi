@@ -206,3 +206,36 @@ Tüm hatalar, aşağıdaki standart formatta döner:
 | Yanlış kullanıcı adı/şifre | 401 |
 | Geçersiz veri (validation) | 400 |
 | Beklenmeyen hata | 500 |
+
+## Docker ile Çalıştırma
+
+Proje, Docker ve docker-compose ile tek komutla ayağa kaldırılabilir. Ekstra bir Java veya PostgreSQL kurulumu gerekmez.
+
+### Gereksinimler
+
+- Docker Desktop kurulu ve çalışır durumda olmalı
+
+### Çalıştırma
+
+Proje kök dizininde şu komutu çalıştırın:
+
+```bash
+docker-compose up --build
+```
+
+Bu komut:
+- PostgreSQL veritabanını bir container içinde başlatır
+- Uygulamayı Dockerfile üzerinden derleyip başka bir container içinde çalıştırır
+- İki container'ı aynı Docker ağında birbirine bağlar
+
+Uygulama ayağa kalktıktan sonra `http://localhost:8080` üzerinden erişilebilir.
+
+### Durdurma
+
+```bash
+docker-compose down
+```
+
+### Not
+
+Docker ortamındaki veritabanı, yerel (native) PostgreSQL kurulumundan bağımsız ve boş başlar. Docker container'ı her yeniden oluşturulduğunda veritabanı sıfırdan gelir.
