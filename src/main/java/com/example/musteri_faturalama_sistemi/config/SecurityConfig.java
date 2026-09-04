@@ -16,6 +16,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 public class SecurityConfig {
 
+    //Bu endpoint için token şart kuralını koyuyor
     @Autowired
     private JwtAuthFilter jwtAuthFilter;
 

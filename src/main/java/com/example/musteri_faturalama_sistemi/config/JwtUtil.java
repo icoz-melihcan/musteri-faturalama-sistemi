@@ -14,11 +14,13 @@ import java.util.function.Function;
 @Component
 public class JwtUtil {
 
+    // Token üretiyor ve okuyor.
+
     @Value("${jwt.secret}")
     private String secret;
 
     @Value("${jwt.expiration}")
-    private long expiration;
+    private long expiration; //SKT
 
     private SecretKey getSigningKey() {
         return Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));

@@ -18,6 +18,7 @@ import java.io.IOException;
 @Component
 public class JwtAuthFilter extends OncePerRequestFilter {
 
+    // Postmandan gelen istek controllera ulaşmadan önce kontrol ediyor token var mı? Varsa geçerli mi?
     @Autowired
     private JwtUtil jwtUtil;
 

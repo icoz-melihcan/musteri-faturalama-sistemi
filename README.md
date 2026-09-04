@@ -205,6 +205,7 @@ Tüm hatalar, aşağıdaki standart formatta döner:
 | Kayıt bulunamadı | 404 |
 | Yanlış kullanıcı adı/şifre | 401 |
 | Geçersiz veri (validation) | 400 |
+| Benzersizlik çakışması (örn. aynı email, aynı kullanıcı adı, hesabın zaten bir adresi olması) | 409 |
 | Beklenmeyen hata | 500 |
 
 ## Docker ile Çalıştırma

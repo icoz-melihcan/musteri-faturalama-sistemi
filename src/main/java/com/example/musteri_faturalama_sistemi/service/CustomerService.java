@@ -14,7 +14,8 @@ import java.util.stream.Collectors;
 @Service
 public class CustomerService {
 
-    @Autowired
+    //IoC mantığı nesneleri spring yaratır.
+    @Autowired  // DI oluyor bu kısım. Bana bunu getir demek oluyor.
     private CustomerRepository customerRepository;
 
     public List<CustomerResponse> getAllCustomers() {
@@ -27,6 +28,7 @@ public class CustomerService {
     public CustomerResponse getCustomerById(Long id) {
         Customer customer = getCustomerEntityById(id);
         return toResponse(customer);
+        // Bu kısım controller katmanı için çünkü controllerin entitiyle işi yok Ona DTO lazm
     }
 
     public CustomerResponse createCustomer(CustomerRequest request) {
@@ -55,11 +57,13 @@ public class CustomerService {
 
     // --- Yardımcı metotlar ---
 
+    // Bu kısım ise diğer servicele için çünkü servisler arasında entity kullanılıyor.
     public Customer getCustomerEntityById(Long id) {
         return customerRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Müşteri bulunamadı: " + id));
     }
 
+    //Bu kısım ise customer entityleri tek tek okuyup dışarıya gösterilecek sade bir nesne üretiyor. DTO
     private CustomerResponse toResponse(Customer customer) {
         return new CustomerResponse(
                 customer.getId(),
